@@ -1,0 +1,111 @@
+//leitura em arquivo de texto
+#include <stdio.h>
+#include <stdlib.h>
+int main (void){
+	FILE *arq;
+	char ch;
+	if ((arq = fopen("teste.txt", "r")) == NULL){
+		printf (" falha na abertura do arquivo \n");
+		exit(1);
+	}
+
+	ch = getc(arq);
+	while (ch != EOF){
+		putchar(ch);
+		ch = getc(arq);
+	}
+	fclose(arq);
+	return 0;
+}
+
+
+//escrita e leitura de um arquivo
+#include <stdio.h>
+#include <stdlib.h>
+int main(void){
+    FILE *arq;
+    char c;
+    char *nome = "texto.txt";
+
+    if ((arq = fopen(nome, "a+")) == NULL){
+        printf ("\n nao foi possivel abrir o arquivo \n");
+        exit (1);
+    }
+
+    c = getchar ();
+    while (! feof (stdin)){
+        fputc (c, arq);
+        c = getchar();
+    }
+
+    rewind(arq);
+    printf("\n Terminei de escrever, agora vou ler \n");
+    c = fgetc (arq);
+    while (!feof(arq)){
+        putchar (c );
+        c = fgetc(arq);
+    }
+    fclose(arq);
+    return 0;
+}
+
+//Escrita em arquivo binário
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct{
+    char titulo[20];
+    int codLivro;
+    float preco;
+}regLivro;
+
+int main (void){
+    FILE *arq;
+    regLivro livro;
+    char opcao;
+    if ((arq = fopen ("livros.bin", "wb")) == NULL){
+        printf ("\n Nao foi possivel abrir o arquivo \n");
+        exit(1);
+    }
+    do{
+        printf("\n Titulo: ");
+        scanf("%19[^\n]%*c", livro.titulo);
+        printf("\n Codigo: ");
+        scanf("%d", &livro.codLivro);
+        printf("\n Preco: ");
+        scanf("%f*c", &livro.preco);
+        fwrite(&livro, sizeof(livro), 1, arq);
+        printf("\n Adicionar outro livro (S/N)?");
+        scanf("%c%*c", &opcao);
+    }while(toupper(opcao) == 'S');
+    fclose(arq);
+    return 0;
+}
+
+//Leitura em arquivo binário
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct{
+    char titulo[20];
+    int codLivro;
+    float preco;
+}regLivro;
+
+int main (void){
+    FILE *arq;
+    regLivro livro;
+    char opcao;
+    if ((arq = fopen ("livros.bin", "rb")) == NULL){
+        printf ("\n Nao foi possivel abrir o arquivo \n");
+        exit(1);
+    }
+    while (fread(&livro,sizeof(livro), 1, arq) == 1) {
+    printf("\nTitulo:%s", livro.titulo);
+    printf("\nCodigo:%d", livro.codLivro);
+    printf("\nPreco:%.2f", livro.preco);
+    printf("\n");
+ }
+
+    fclose(arq);
+    return 0;
+}
+
