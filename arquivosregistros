@@ -116,7 +116,7 @@ int carregaData();
 int carregaCompra();
 typedef struct{
     int numero;
-    float Vtotal;
+    float vTotal;
 }regData;
 
 typedef struct{ 
@@ -127,6 +127,7 @@ typedef struct{
     int quantidade;
     int produto;
     float valor;
+    float subtotal;
 }regCompra;
 
 int carregaData(int *data, int *arq, char opcao){
@@ -135,11 +136,13 @@ int carregaData(int *data, int *arq, char opcao){
         exit(1);
     }
     do{
-        printf("\n Digite o numero do pedido ");
+        printf("\n Digite o numero do pedido");
         scanf("%d", &data.numero);
-        printf("\n O valor total eh: ");
+        printf("\n Digite o valor total");
+        scanf("%f*c", &data.vTotal);
+        printf("\n Deseja continuar? (S/N)");
+        scanf("%c%*c", &data.opcao);
     }while(toupper(opcao) == 'S');
-
 }
 
 int carregaCompra(int *data, int *arq, char opcao){
@@ -150,10 +153,33 @@ int carregaCompra(int *data, int *arq, char opcao){
     do{
         printf("\n digite o numero da compra");
         scanf("%d", &compra.numero);
-    }
+        printf("\n digite o dia da compra");
+        scanf("%d", &compra.dia);
+        printf("\n digite o mes da compra");
+        scanf("%d", &compra.mes);
+        printf("\n digite o ano da compra");
+        scanf("%d", &compra.ano);
+        printf("\n digite a quantidade da compra");
+        scanf("%d", &compra.quantidade);
+        printf("\n digite o codigo do produto");
+        scanf("%d", &compra.produto);
+        printf("\n quanto custa o seu produto individual?");
+        scanf("%f*c", &compra.valor);
+        printf("\n quer comprar mais alguma coisa? (S/N)");
+        scanf("%c%*c", &opcao);
+    }while((toupper(opcao) == 'S') && (compra.quantidade>0));
 }
+
 int main(void){
     FILE *arq;
     regData data;
     regVenda compra;
+
+    if (( arq == fopen ("compras.bin", "a+b")) == NULL){
+        printf ("\n arquivo nao encontrado");
+        exit(1);]
+    }
+
+    carregaCompra(&data, &arq, )
+    
 }
