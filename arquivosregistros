@@ -109,3 +109,51 @@ int main (void){
     return 0;
 }
 
+//Trabalho de prog
+#include <stdio.h>
+#include <stdlib.h>
+int carregaData();
+int carregaCompra();
+typedef struct{
+    int numero;
+    float Vtotal;
+}regData;
+
+typedef struct{ 
+    int numero;
+    int dia;
+    int mes;
+    int ano;
+    int quantidade;
+    int produto;
+    float valor;
+}regCompra;
+
+int carregaData(int *data, int *arq, char opcao){
+    if  ((arq == fopen ("datas.bin", "a+b")) == NULL){
+        printf ("arquivo nao pode ser aberto\n");
+        exit(1);
+    }
+    do{
+        printf("\n Digite o numero do pedido ");
+        scanf("%d", &data.numero);
+        printf("\n O valor total eh: ");
+    }while(toupper(opcao) == 'S');
+
+}
+
+int carregaCompra(int *data, int *arq, char opcao){
+    if ((arq == fopen ("compras.bin", "a+b")) == NULL){
+        printf ("\n nao foi possivel abrir o arquivo \n");
+        exit(1);
+    }
+    do{
+        printf("\n digite o numero da compra");
+        scanf("%d", &compra.numero);
+    }
+}
+int main(void){
+    FILE *arq;
+    regData data;
+    regVenda compra;
+}
